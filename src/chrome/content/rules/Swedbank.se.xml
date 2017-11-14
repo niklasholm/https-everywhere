@@ -1,0 +1,15 @@
+<!--
+	Nonfunctional hosts in *.swedbank.se:
+
+	h: http redirect
+	m: certificate mismatch
+	r: connection refused
+	s: self-signed certificate
+	t: timeout on https
+-->
+<ruleset name="Swedbank.se">
+	<target host="swedbank.se" />
+	<target host="www.swedbank.se" />
+
+	<rule from="^http:" to="https:" />
+</ruleset>
