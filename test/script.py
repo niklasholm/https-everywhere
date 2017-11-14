@@ -34,14 +34,10 @@ if sys.argv[1] == "Chrome":
         chromeOps.add_argument("--no-sandbox")
 
     # Find the path to chromedriver
-    chromedriver_path = "chromedriver"
-    if not which(chromedriver_path) and sys.platform.startswith("linux"):
-        if 'Ubuntu' in platform.linux_distribution():
-            chromedriver_path = "/usr/lib/chromium-browser/chromedriver"
-        elif 'debian' in platform.linux_distribution():
-            #Debian is lowercase when platform.linux_distribution() is used.
-            #This is not a mistake.
-            chromedriver_path = "/usr/lib/chromium/chromedriver"
+    args = {}
+    if sys.platform.startswith("linux"):
+        args['path'] = os.pathsep.join([os.environ['PATH'], '/usr/lib/chromium-browser', '/usr/lib/chromium'])
+    chromedriver_path = which("chromedriver", **args) or "chromedriver"
 
     try:
         # First argument is optional, if not specified will search path.
