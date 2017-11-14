@@ -11,6 +11,7 @@
 # Otherwise, use pyvirtualdisplay.
 
 import sys, os, platform, time
+from distutils.spawn import find_executable as which
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
@@ -34,7 +35,7 @@ if sys.argv[1] == "Chrome":
 
     # Find the path to chromedriver
     chromedriver_path = "chromedriver"
-    if sys.platform.startswith("linux"):
+    if not which(chromedriver_path) and sys.platform.startswith("linux"):
         if 'Ubuntu' in platform.linux_distribution():
             chromedriver_path = "/usr/lib/chromium-browser/chromedriver"
         elif 'debian' in platform.linux_distribution():
